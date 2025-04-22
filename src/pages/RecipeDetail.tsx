@@ -1,20 +1,20 @@
-import { useParams, Link } from "react-router-dom";
-import { Clock, Users, ArrowLeft } from "lucide-react";
-import Header from "@/components/Header";
-import { Recipe, recipes } from "@/data/recipes";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { useParams, Link } from 'react-router-dom';
+import { Clock, User, ChevronLeft, Utensils } from 'lucide-react';
+import Header from '@/components/Header';
+import { getRecipeById } from '@/data/recipes';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 const RecipeDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const recipe = recipes.find(r => r.id === id) as Recipe;
+  const { id = '' } = useParams();
+  const recipe = getRecipeById(id);
 
   if (!recipe) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
-        <div className="container mx-auto py-16 px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">Рецепт не найден</h2>
+        <div className="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+          <h1 className="text-2xl font-bold mb-4">Рецепт не найден</h1>
           <Link to="/">
             <Button>Вернуться на главную</Button>
           </Link>
@@ -28,94 +28,100 @@ const RecipeDetail = () => {
       <Header />
       
       <div className="container mx-auto px-4 py-8">
-        {/* Back button */}
-        <Link to="/" className="inline-flex items-center text-recipe-primary hover:underline mb-6">
-          <ArrowLeft className="h-4 w-4 mr-1" />
-          Назад к рецептам
-        </Link>
+        {/* Breadcrumbs */}
+        <div className="mb-6">
+          <Link to="/" className="flex items-center text-recipe-primary hover:underline">
+            <ChevronLeft className="h-4 w-4 mr-1" />
+            <span>Вернуться к рецептам</span>
+          </Link>
+        </div>
         
-        {/* Recipe header */}
-        <div className="flex flex-col md:flex-row gap-8 mb-10">
-          <div className="w-full md:w-1/2">
-            <img 
-              src={recipe.image} 
-              alt={recipe.title} 
-              className="w-full h-[350px] object-cover rounded-lg shadow-md"
-            />
-          </div>
-          <div className="w-full md:w-1/2">
-            <div className="flex flex-wrap gap-2 mb-4">
+        {/* Recipe Header */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="md:col-span-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-recipe-dark mb-4">{recipe.title}</h1>
+            <p className="text-lg text-gray-600 mb-6">{recipe.description}</p>
+            
+            <div className="flex flex-wrap gap-4 mb-6">
+              <div className="flex items-center">
+                <Clock className="h-5 w-5 text-recipe-primary mr-2" />
+                <span>{recipe.cookTime}</span>
+              </div>
+              <div className="flex items-center">
+                <User className="h-5 w-5 text-recipe-primary mr-2" />
+                <span>{recipe.difficulty}</span>
+              </div>
+              <div className="flex items-center">
+                <Utensils className="h-5 w-5 text-recipe-primary mr-2" />
+                <span>{recipe.servings} порции</span>
+              </div>
+            </div>
+            
+            <div className="flex flex-wrap gap-2 mb-6">
               {recipe.tags.map((tag, index) => (
-                <span key={index} className="recipe-tag">
+                <span key={index} className="bg-recipe-light text-recipe-dark px-3 py-1 rounded-full text-sm">
                   {tag}
                 </span>
               ))}
             </div>
-            <h1 className="font-playfair font-bold text-3xl md:text-4xl text-gray-800 mb-4">
-              {recipe.title}
-            </h1>
-            <p className="text-gray-600 mb-6">
-              {recipe.description}
-            </p>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="flex items-center">
-                <Clock className="h-5 w-5 text-recipe-primary mr-2" />
-                <span className="text-gray-700">{recipe.cookTime}</span>
-              </div>
-              <div className="flex items-center">
-                <Users className="h-5 w-5 text-recipe-primary mr-2" />
-                <span className="text-gray-700">{recipe.servings} порций</span>
-              </div>
-            </div>
-            <div className="p-4 bg-recipe-light rounded-lg">
-              <h3 className="font-bold text-lg mb-3">Уровень сложности</h3>
-              <div className="flex items-center">
-                <span className="text-recipe-primary font-medium">{recipe.difficulty}</span>
-              </div>
+          </div>
+          
+          <div className="md:col-span-1">
+            <div className="rounded-lg overflow-hidden shadow-md">
+              <img 
+                src={recipe.image || "/placeholder.svg"} 
+                alt={recipe.title}
+                className="w-full h-64 object-cover" 
+              />
             </div>
           </div>
         </div>
         
         <Separator className="my-8" />
         
-        {/* Ingredients */}
-        <div className="mb-10">
-          <h2 className="font-playfair font-bold text-2xl mb-6">Ингредиенты</h2>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+        {/* Ingredients and Steps */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Ingredients */}
+          <div className="lg:col-span-1">
+            <h2 className="text-2xl font-bold text-recipe-dark mb-4">Ингредиенты</h2>
+            <ul className="space-y-3 bg-recipe-light p-6 rounded-lg">
               {recipe.ingredients.map((ingredient, index) => (
-                <li key={index} className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="font-medium">{ingredient.name}</span>
-                  <span className="text-gray-600">{ingredient.amount}</span>
+                <li key={index} className="flex justify-between">
+                  <span className="text-recipe-dark">{ingredient.name}</span>
+                  <span className="text-gray-600 font-medium">{ingredient.amount}</span>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
-        
-        {/* Instructions */}
-        <div className="mb-10">
-          <h2 className="font-playfair font-bold text-2xl mb-6">Инструкция приготовления</h2>
-          <div className="space-y-6">
-            {recipe.steps.map((stepItem) => (
-              <div key={stepItem.step} className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="font-bold text-lg text-recipe-primary mb-3">
-                  Шаг {stepItem.step}
-                </h3>
-                <p className="text-gray-700">{stepItem.description}</p>
-                {stepItem.image && (
-                  <img 
-                    src={stepItem.image} 
-                    alt={`Шаг ${stepItem.step}`} 
-                    className="mt-4 rounded-md w-full max-w-[400px]" 
-                  />
-                )}
-              </div>
-            ))}
+          
+          {/* Steps */}
+          <div className="lg:col-span-2">
+            <h2 className="text-2xl font-bold text-recipe-dark mb-4">Приготовление</h2>
+            <ol className="space-y-6">
+              {recipe.steps.map((step) => (
+                <li key={step.step} className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="flex items-start">
+                    <div className="bg-recipe-primary text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-4">
+                      {step.step}
+                    </div>
+                    <div className="flex-grow">
+                      <p className="text-gray-700">{step.description}</p>
+                      {step.image && (
+                        <div className="mt-4">
+                          <img 
+                            src={step.image} 
+                            alt={`Шаг ${step.step}`}
+                            className="rounded-lg w-full max-h-48 object-cover" 
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
-        
-        {/* Similar recipes suggestion would go here */}
       </div>
       
       {/* Footer */}
@@ -123,7 +129,7 @@ const RecipeDetail = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <h3 className="font-playfair font-bold text-xl text-recipe-primary">Готовим Дома 🍳</h3>
+              <h3 className="font-bold text-xl text-recipe-primary">Готовим Дома 🍳</h3>
               <p className="text-gray-300 mt-2">Вкусные рецепты для вашей кухни</p>
             </div>
             <div className="flex space-x-4">

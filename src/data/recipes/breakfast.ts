@@ -1,86 +1,88 @@
 import { Recipe } from '../types';
 
-/**
- * Рецепты завтраков
- */
 export const breakfastRecipes: Recipe[] = [
   {
-    id: "omlet-s-syrom",
-    title: "Омлет с сыром",
-    description: "Быстрый и сытный омлет с сыром - идеальный вариант для завтрака, который можно приготовить из того, что обычно есть в холодильнике.",
-    image: "/placeholder.svg",
-    cookTime: "10 мин",
+    id: 'breakfast-1',
+    title: 'Омлет с овощами',
+    description: 'Пышный омлет с сочными овощами - идеальный завтрак для всей семьи.',
+    image: '/placeholder.svg',
+    cookTime: '15 минут',
     servings: 2,
-    difficulty: "Легко",
-    tags: ["Завтрак", "Быстро", "Яйца"],
+    difficulty: 'Легко',
+    tags: ['Завтрак', 'Быстро', 'Яйца'],
     ingredients: [
-      { name: "Яйца", amount: "4 шт" },
-      { name: "Молоко", amount: "50 мл" },
-      { name: "Сыр твердый", amount: "50 г" },
-      { name: "Соль", amount: "по вкусу" },
-      { name: "Перец", amount: "по вкусу" },
-      { name: "Масло растительное", amount: "1 ст.л." }
+      { name: 'Яйца', amount: '4 шт.' },
+      { name: 'Молоко', amount: '50 мл' },
+      { name: 'Болгарский перец', amount: '1/2 шт.' },
+      { name: 'Помидоры', amount: '1 шт.' },
+      { name: 'Зелёный лук', amount: '2-3 стебля' },
+      { name: 'Соль, перец', amount: 'по вкусу' }
     ],
     steps: [
-      { 
-        step: 1, 
-        description: "Разбейте яйца в миску, добавьте молоко, соль и перец. Взбейте вилкой до однородности." 
+      {
+        step: 1,
+        description: 'Взбейте яйца с молоком, добавьте соль и перец',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 2, 
-        description: "Натрите сыр на мелкой терке." 
+      {
+        step: 2,
+        description: 'Нарежьте все овощи мелким кубиком',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 3, 
-        description: "Разогрейте сковороду, добавьте масло и вылейте яичную смесь." 
+      {
+        step: 3,
+        description: 'Разогрейте сковороду с небольшим количеством масла',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 4, 
-        description: "Когда низ омлета схватится, посыпьте сверху тертым сыром." 
+      {
+        step: 4,
+        description: 'Обжарьте овощи 2-3 минуты',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 5, 
-        description: "Накройте крышкой и готовьте на медленном огне до готовности (около 3-4 минут)." 
+      {
+        step: 5,
+        description: 'Залейте яичной смесью и готовьте под крышкой на медленном огне 5-7 минут',
+        image: '/placeholder.svg'
       }
     ]
   },
   {
-    id: "tvorozhnaya-zapekanka",
-    title: "Творожная запеканка",
-    description: "Нежная запеканка из творога - отличное блюдо для завтрака или полдника. Минимум ингредиентов, максимум вкуса!",
-    image: "/placeholder.svg",
-    cookTime: "50 мин",
-    servings: 4,
-    difficulty: "Легко",
-    tags: ["Десерт", "Творог", "Завтрак"],
+    id: 'breakfast-2',
+    title: 'Каша овсяная с фруктами',
+    description: 'Питательная и полезная овсянка с сезонными фруктами и ягодами.',
+    image: '/placeholder.svg',
+    cookTime: '10 минут',
+    servings: 1,
+    difficulty: 'Легко',
+    tags: ['Завтрак', 'Быстро', 'Полезно'],
     ingredients: [
-      { name: "Творог", amount: "500 г" },
-      { name: "Яйца", amount: "3 шт" },
-      { name: "Сахар", amount: "100 г" },
-      { name: "Манная крупа", amount: "2 ст.л." },
-      { name: "Ванильный сахар", amount: "1 пакетик" },
-      { name: "Сметана", amount: "2 ст.л." }
+      { name: 'Овсяные хлопья', amount: '50 г' },
+      { name: 'Молоко или вода', amount: '200 мл' },
+      { name: 'Банан', amount: '1/2 шт.' },
+      { name: 'Яблоко', amount: '1/2 шт.' },
+      { name: 'Мёд', amount: '1 ст. л.' },
+      { name: 'Корица', amount: 'по вкусу' }
     ],
     steps: [
-      { 
-        step: 1, 
-        description: "Разотрите творог с яйцами и сахаром до однородной массы." 
+      {
+        step: 1,
+        description: 'Залейте овсяные хлопья горячим молоком или водой',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 2, 
-        description: "Добавьте манную крупу и ванильный сахар, перемешайте и оставьте на 15 минут, чтобы манка набухла." 
+      {
+        step: 2,
+        description: 'Накройте крышкой и оставьте на 5 минут',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 3, 
-        description: "Форму для запекания смажьте маслом, вылейте творожную массу." 
+      {
+        step: 3,
+        description: 'Нарежьте фрукты небольшими кусочками',
+        image: '/placeholder.svg'
       },
-      { 
-        step: 4, 
-        description: "Смажьте поверхность сметаной." 
-      },
-      { 
-        step: 5, 
-        description: "Выпекайте в разогретой до 180°C духовке около 30-40 минут до золотистой корочки." 
+      {
+        step: 4,
+        description: 'Добавьте фрукты, мёд и корицу в кашу, перемешайте',
+        image: '/placeholder.svg'
       }
     ]
   }

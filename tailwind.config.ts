@@ -1,15 +1,12 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./index.html",
+    "./src/**/*.{ts,tsx}",
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -25,6 +22,12 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        recipe: {
+          primary: "#F97316",    // Оранжевый
+          secondary: "#FDBA74",  // Светло-оранжевый
+          light: "#FEF3C7",      // Очень светлый персиковый
+          dark: "#292524",       // Темно-коричневый
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -53,23 +56,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Recipe theme colors
-        recipe: {
-          primary: "hsl(var(--recipe-primary))",
-          "primary-foreground": "hsl(var(--recipe-primary-foreground))",
-          dark: "hsl(var(--recipe-dark))",
-          light: "hsl(var(--recipe-light))",
-          secondary: "hsl(var(--recipe-secondary))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        playfair: ["Playfair Display", "serif"],
       },
       keyframes: {
         "accordion-down": {
@@ -85,9 +76,12 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+};
 
 export default config;
